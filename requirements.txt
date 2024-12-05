@@ -213,3 +213,5 @@ wsproto==1.2.0
 xgboost==2.1.1
 yarl==1.9.4
 zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1724730934107/work
+scikit-optimize
+
