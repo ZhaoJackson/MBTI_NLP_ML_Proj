@@ -1,6 +1,6 @@
 # Social Media Personality Prediction using MBTI and NLP
 
-This project analyzes social media data to identify linguistic patterns associated with MBTI personality types. By applying various NLP and machine learning (ML) techniques, we aim to predict a user’s MBTI classification based on their social media language. Our findings have potential applications in fields such as personalization, communication, HR, and mental health support.
+This project explores the relationship between social media language and MBTI personality types using Natural Language Processing (NLP) and Machine Learning (ML) techniques. By identifying distinct linguistic patterns, we aim to develop predictive models capable of classifying users’ MBTI personality types based on their social media posts. The findings have potential applications in personalization, communication strategy, human resource management, and mental health support.
 
 Team Members
 - Yifan Zhang
@@ -11,53 +11,95 @@ Team Members
 
 ## Background and Problem Statement
 
-With the growing use of social media, vast amounts of data can provide insights into human behavior and personality. The Myers-Briggs Type Indicator (MBTI), a popular personality framework, categorizes individuals into 16 types based on four traits: Introversion/Extraversion, Sensing/Intuition, Thinking/Feeling, and Judging/Perceiving.
+The Myers-Briggs Type Indicator (MBTI) categorizes individuals into 16 personality types based on four dichotomies:
+- Introversion (I) / Extraversion (E)
+- Sensing (S) / Intuition (N)
+- Thinking (T) / Feeling (F)
+- Judging (J) / Perceiving (P)
 
-### This project aims to:
-- Discover linguistic patterns associated with each MBTI type.
-- Develop a model that can predict a user’s MBTI type based on social media text data.
+Social media, as a platform for self-expression, generates vast data sets that provide valuable insights into personality and behavior. This project leverages NLP and ML to bridge the gap between linguistic patterns and MBTI classifications.
+
+### Objectives:
+- Identify linguistic patterns unique to each MBTI type.
+- Develop predictive models to classify MBTI types from social media text data.
 
 ### Potential Applications
-- The project’s findings could enhance personalization, improve communication strategies, inform HR practices, and offer insights for mental health support.
+- Enhanced personalization in products and services.
+- Improved communication strategies for marketing and engagement.
+- Streamlined recruitment and HR practices.
+- Insights for mental health support and well-being.
 
 ## Data Description
-
-The dataset includes over 8,600 rows sourced from Kaggle, where each row represents:
-- MBTI Type: One of the 16 personality types.
-- Posts: The user’s last 50 social media posts.
+- The dataset includes over 8,600 rows sourced from Kaggle, where each row represents:
+- **MBTI Type**: One of the 16 personality types.
+- **Posts**: The user’s last 50 social media posts.
 
 This data is particularly suitable for NLP and ML techniques to understand the relationship between language usage and personality traits.
 
-## Project Workflow
+## Exploratory Data Analysis (EDA)
+1. **Linguistic Analysis**
+- Neutral language predominates across posts, with subtle differences in emotional tone by personality type.
+- Feeling (F) types tend to use more positive language than Thinking (T) types, aligning with their expressive traits.
+2. **Post Length Analysis**
+- No significant difference in average post length among MBTI types, though minor variations exist at the individual level.
+3. **Word Choice**
+- Introverts use reflective language, while extroverts use action-oriented words.
+- **Common unigrams**: friend, want, way.
+- **Common bigrams**: Memory-related phrases reflecting introspection and relationships.
 
-1. Initial Data Exploration
-- Analyzed the structure, frequency of personality types, and initial data quality
-- Examined common linguistic patterns across MBTI types, laying a foundation for further analysis.
+## Preprocessing and Feature Engineering
 
-2. Data Cleaning and Preprocessing
-- Removed URLs, standardized text by lowercasing, and removed delimiters
-- Applied lemmatization and stopword removal for cleaner text features.
+1. **Cleaning**
+- Removed special characters, URLs, and stopwords.
+- Converted text to lowercase.
+- Tokenized words and applied lemmatization for consistency.
 
-3. Feature Engineering
-- Transformed text data into numerical features using TF-IDF
-- Conducted hyperparameter tuning on key models using RandomSearchCV.
+2. **Feature Engineering**
+- TF-IDF Vectorization: Extracted top 5,000 features capturing linguistic importance.
+- Elastic-Net Regularization: Reduced noise and irrelevant features.
+- Dimensionality Reduction: Applied Variance-based Reduction to reduce the remaining features.
 
-4. Model Selection and Training
-- Logistic Regression (Achieved highest accuracy at 69%)
-- Support Vector Machine (SVM)
+3. **Class Balancing**
+- Addressed imbalances using SMOTE, ensuring each personality type has 1,099 samples.
+
+## Model Development
+
+### Algorithms Tested
+- Logistic Regression
+- Support Vector Machines (SVM)
 - Random Forest
 - XGBoost
+- Multi-Layer Perceptron (MLP)
+- AdaBoost
+- K-Nearest Neighbors (KNN)
+- Decision Trees
 
-5. Results
-- The logistic regression model showed the best performance, achieving an accuracy of 69% following hyperparameter tuning. The Random Forest and XGBoost models also demonstrated moderate success in capturing relationships within the data.
+### Performance on F-1 Score
+1. Kernel SVM: 61.44%
+2. XGBoost: 61.28%
+2. Random Forest: 61.17%
+3. Logistic Regression: 62.19%
+
+### Hyperparameter Optimization
+1. Random Search CV: Explored a broad hyperparameter space efficiently.
+2. Bayesian Optimization: Fine-tuned the Random Forest model, achieving the best performance with:
+- Max depth: 31
+- Min samples per leaf: 1
+- Estimators: 300
+
+### Final Results
+- Random Forest: F1-Score 62.97%, Accuracy 63.8%.
+- While cross-validation results were strong, test set performance highlights opportunities to address overfitting and enhance generalization.
 
 ## How to Run the Project
-
 - Dependencies: Install the required libraries using requirements.txt.
-  
+
 ```
 pip install -r requirements.txt
 
 ```
-- Notebook Execution: Run `main.ipynb` for data preprocessing, model training, and evaluation.
-- Results Analysis: Review the saved model files or visualizations within the notebook to see detailed results by MBTI type.
+
+## Future Work
+- **Overfitting Mitigation**: Incorporate advanced regularization techniques and alternative validation methods.
+- **Feature Engineering**: Explore word embeddings like Word2Vec and BERT.
+- **Model Deployment**: Build a web interface or API for real-world use cases.P
